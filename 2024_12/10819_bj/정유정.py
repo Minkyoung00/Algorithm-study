@@ -1,3 +1,6 @@
+# 수끼리의 차를 이용해서 풀려고 했지만 실패
+# 반례: 5 [1, 15, 2, 8, 3]
+
 import sys
 
 nums_size = int(sys.stdin.readline())
