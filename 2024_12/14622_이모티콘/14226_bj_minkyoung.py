@@ -19,20 +19,17 @@ while queue:
     
     count += 1
 
-    if sum > S: continue
+    if sum > S or (result != 1000 and result < count): continue
 
     # 이전 copy
     elif pre == 0:  
-        if result == 1000 or result > count:
-            queue.append((count, unit, sum + unit, 1))      # paste
-            queue.append((count, unit, sum - 1, 2))         # delete
+        queue.append((count, unit, sum + unit, 1))      # paste
+        queue.append((count, unit, sum - 1, 2))         # delete
 
     # 이전 paste OR delete
     else:           
-        queue.append((count, sum, sum, 0))                  # copy
-
-        if result == 1000 or result > count: 
-            queue.append((count, unit, sum + unit, 1))      # paste
-            queue.append((count, unit, sum - 1, 2))         # delete
+        queue.append((count, sum, sum, 0))              # copy
+        queue.append((count, unit, sum + unit, 1))      # paste
+        queue.append((count, unit, sum - 1, 2))         # delete
 
 print(result)
