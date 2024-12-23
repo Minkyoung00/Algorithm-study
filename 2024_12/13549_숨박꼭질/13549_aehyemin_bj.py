@@ -1,38 +1,25 @@
 from collections import deque
 
-def solve():
-    N, K = map(int, input().split())
-    MAX_POS = 100000
-    dist = [-1] * (MAX_POS + 1)  # 거리(시간) 정보, -1은 미방문을 의미
+n, m = map(int, input().split())
+check = [0] * 100001
+q = deque()
+
+q.append(n)
+check[n] = 1
+
+while q:
+    x = q.popleft()
     
-  
-    dq = deque()
-    dist[N] = 0
-    dq.append(N)
+    if x == m :
+        print(check[m]-1)
+        break
     
-    while dq:
-        x = dq.popleft()
-        
-        if x == K:
-            print(dist[x])
-            return
-      
-        nx = 2 * x
-        if 0 <= nx <= MAX_POS and dist[nx] == -1:
-            dist[nx] = dist[x]  # 비용 0 -> 거리(시간) 변화 없음
-            dq.appendleft(nx)   # 앞쪽에 삽입하여 우선 탐색
-
-        nx = x - 1
-        if 0 <= nx <= MAX_POS and dist[nx] == -1:
-            dist[nx] = dist[x] + 1
-            dq.append(nx)       # 뒤쪽에 삽입
- 
-      
-        nx = x + 1
-        if 0 <= nx <= MAX_POS and dist[nx] == -1:
-            dist[nx] = dist[x] + 1
-            dq.append(nx)
-
-
-if __name__ == "__main__":
-    solve()
+    for nx in (2*x, x-1, x+1):
+        if 0 <= nx <= 100000 and check[nx] == 0:
+            if nx == 2*x:
+                check[nx] = check[x]
+                q.append(nx)
+                
+            else:
+                check[nx] = check[x] + 1
+                q.append(nx)
