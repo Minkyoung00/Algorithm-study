@@ -1,15 +1,16 @@
-from queue import PriorityQueue 
+import heapq
 
 N = int(input())
-queue = PriorityQueue()
+heap = []
+
 for i in range(N):
-    queue.put(int(input())) 
+    heapq.heappush(heap, int(input()))
 
 result = 0
-while not queue.empty():
-    a = queue.get()
-    b = queue.get()
-    result += a+b
-    queue.put(a+b) 
+while len(heap) > 1:
+    a = heapq.heappop(heap)
+    b = heapq.heappop(heap)
+    result += a + b
+    heapq.heappush(heap, a + b)
 
 print(result)
