@@ -1,6 +1,6 @@
 T =int(input())
 for i in range(T):
-	text = input().split()
+	text = input()
 	cnt = 0
 	for t in text:
 		if t == '(':
@@ -9,6 +9,10 @@ for i in range(T):
 			if cnt > 0:
 				cnt -= 1
 			else:
-				print('NO')
+				cnt = -1
 				break
-	print('YES')
+	
+	if cnt == 0:
+		print('YES')
+	else:
+		print('NO')
