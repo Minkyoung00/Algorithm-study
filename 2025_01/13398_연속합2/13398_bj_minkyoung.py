@@ -8,7 +8,6 @@ for i in range(n):
     if nums[i] < 0:
         nagatives_idx.append(i)
         nagatives_cnt += 1
-
     
 dp = [0] * (nagatives_cnt + 1)
 
@@ -22,4 +21,7 @@ for i in range(nagatives_cnt+1):
         continue
     dp[i] = sum(nums[nagatives_idx[i-1]+1:nagatives_idx[i]])
 
-print(dp)
+for i in range(nagatives_cnt):
+    dp.append(dp[i] + dp[i+1] + nums[nagatives_idx[i]])
+
+print(max(dp))
