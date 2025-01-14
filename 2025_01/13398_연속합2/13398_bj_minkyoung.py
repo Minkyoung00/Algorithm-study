@@ -1,27 +1,24 @@
 n = int(input())
 nums = list(map(int, input().split()))
 
-nagatives_idx = []
-nagatives_cnt = 0
+left = [0] * n
+right = [0] * n
 
 for i in range(n):
-    if nums[i] < 0:
-        nagatives_idx.append(i)
-        nagatives_cnt += 1
-    
-dp = [0] * (nagatives_cnt + 1)
+    if i == 0:
+        left[i] = nums[i]
+    else:
+        left[i] = max(left[i-1] + nums[i], nums[i])
 
-for i in range(nagatives_cnt+1):
-    if i  == 0:
-        dp[i] = sum(nums[:nagatives_idx[i]])
-        continue
-    if i == nagatives_cnt:
-        if nagatives_idx[i-1] < n-1:
-            dp[i] = sum(nums[nagatives_idx[i-1] + 1:])
-        continue
-    dp[i] = sum(nums[nagatives_idx[i-1]+1:nagatives_idx[i]])
+for i in range(n-1, -1, -1):
+    if i == n-1:
+        right[i] = nums[i]
+    else:
+        right[i] = max(right[i+1] + nums[i], nums[i])
 
-for i in range(nagatives_cnt):
-    dp.append(dp[i] + dp[i+1] + nums[nagatives_idx[i]])
+result = max(left)
 
-print(max(dp))
+for i in range(1, n-1):
+    result = max(result, left[i-1] + right[i+1])
+
+print(result)
