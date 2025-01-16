@@ -1,11 +1,13 @@
 import sys
-from bisect import bisect_left
 input = sys.stdin.readline
 
 N = int(input())
 coords = list(map(int, input().split()))
-sorted_coords = sorted(list(set(coords)))
+sorted_coords = sorted(set(coords))
 
-result = [bisect_left(sorted_coords, coord) for coord in coords]
+dict = {sorted_coords[i]:i for i in range(len(sorted_coords))}
 
-print(*result)
+for i in range(N):
+    coords[i] = dict[coords[i]]
+
+print(*coords)
